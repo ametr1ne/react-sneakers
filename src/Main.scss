@@ -1,0 +1,122 @@
+.main {
+  padding: 45px 60px;
+
+  .content {
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .search-box {
+        display: flex;
+        position: relative;
+
+        svg {
+          position: absolute;
+          top: 50%;
+          left: 20px;
+          transform: translateY(-50%);
+        }
+
+        .search {
+          font-family: inherit;
+          height: 45px;
+          border: 1px solid #F3F3F3;
+          border-radius: 10px;
+          outline: none;
+          padding: 0 20px 0 50px;
+          font-size: 16px;
+
+          &::placeholder {
+            color: #C4C4C4;
+          }
+        }
+      }
+    }
+
+    &__cards {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 40px;
+
+      .card {
+        box-sizing: border-box;
+        cursor: pointer;
+        background: #FFFFFF;
+        border: 1px solid #F3F3F3;
+        border-radius: 40px;
+        transition: box-shadow .3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 30px;
+        position: relative;
+
+        &:hover {
+          box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .fav-btn {
+          cursor: pointer;
+          position: absolute;
+          top: 30px;
+          left: 30px;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #FEF0F0;
+          border-radius: 7px;
+          border: none;
+        }
+
+        img {
+          margin-bottom: 14px;
+        }
+
+        p {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 17px;
+          margin-bottom: 14px;
+        }
+
+        &__bottom {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          .price {
+            p {
+              font-weight: 500;
+              font-size: 11px;
+              line-height: 13px;
+              text-transform: uppercase;
+              color: #BDBDBD;
+              margin-bottom: 2px;
+            }
+            b {
+              font-weight: 700;
+              font-size: 14px;
+              line-height: 17px;
+            }
+          }
+          .add-btn {
+            cursor: pointer;
+            border: 1px solid #F2F2F2;
+            border-radius: 8px;
+            background: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+    }
+  }
+}
