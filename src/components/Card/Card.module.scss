@@ -1,0 +1,98 @@
+.card {
+  box-sizing: border-box;
+  cursor: pointer;
+  background: #FFFFFF;
+  border: 1px solid #F3F3F3;
+  border-radius: 40px;
+  transition: box-shadow .3s, transform .3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 30px;
+  position: relative;
+
+  &:hover {
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.05);
+    transform: translateY(-3px);
+  }
+
+  .favBtn {
+    cursor: pointer;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #F8F8F8;
+    border-radius: 7px;
+  }
+
+  .favBtnLiked {
+    background: #FEF0F0;
+    border: none;
+  }
+
+  img {
+    margin-bottom: 14px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 14px;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .price {
+      p {
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 13px;
+        text-transform: uppercase;
+        color: #BDBDBD;
+        margin-bottom: 2px;
+      }
+      b {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+    .addBtn {
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background .5s;
+    }
+    .notAdded {
+      border: 1px solid #F2F2F2;
+      background: white;
+
+      &:hover {
+        background: #f6f5f5;
+      }
+    }
+    .added {
+      background: #6be882;
+
+      &:hover {
+        background: #50c766;
+      }
+    }
+  }
+}

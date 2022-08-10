@@ -2,8 +2,6 @@
 
 body {
   background: #E7F6FF;
-  height: 100%;
-  width: 100%;
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
 }
@@ -14,7 +12,7 @@ a, p, h1, h2, h3, h4 {
 }
 
 .wrapper {
-  max-width: 1060px;
+  max-width: 1080px;
   margin: 85px auto;
   background: #FFFFFF;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
@@ -25,4 +23,7 @@ h2 {
   font-weight: 700;
   font-size: 32px;
   line-height: 39px;
+}
+
+.overflow-hidden {
 }
