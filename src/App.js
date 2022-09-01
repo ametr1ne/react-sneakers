@@ -22,23 +22,50 @@ function App() {
         })
     }, [])
 
-    const onAddToCart = (sneakerItem) => {
+    useEffect(() => {
+        !isOpened ? document.body.style.overflow = 'visible' :
+            document.body.style.overflow = 'hidden'
+    }, [isOpened])
 
-        setCartItems( prev => [...prev, sneakerItem])
+    const onAddToCart = (sneakerItem, added) => {
 
-        cartItems.map((obj) => (
-            setCartAmount(cartAmount + obj.price)
-        ))
-    }
+        let duplicate = false
+        let removeIndex
 
-    let className = 'App';
-    if (isOpened) {
-        className += ' overflow-hidden';
+        cartItems.forEach((item) => {
+            if (item.name === sneakerItem.name)
+                duplicate = true
+        })
+
+        if (!added) {
+            removeIndex = cartItems.indexOf(sneakerItem)
+            if (removeIndex !== -1) {
+                cartItems.splice(removeIndex, 1)
+            }
+        }
+
+        if (!duplicate) {
+            setCartItems(prev => [...prev, sneakerItem])
+            fetch('https://62efb1e58d7bc7c2eb7e6b32.mockapi.io/cartItems', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(sneakerItem)
+            })
+            setCartAmount(cartAmount + sneakerItem.price)
+        }
+
     }
 
     return (
-        <div className={className}>
-            {isOpened && <Aside items={cartItems} onClickCart={() => setIsOpened(false)}/>}
+        <div className="App">
+            <Aside
+                opened={isOpened}
+                cartSneakers={cartItems}
+                onClickCart={() => setIsOpened(false)}
+                totalPrice={cartAmount}
+            />
             <div className="wrapper">
                 <Header onToggleCart={() => setIsOpened(true)} cartAmount={cartAmount}/>
                 <main className="main">
@@ -67,7 +94,8 @@ function App() {
                                     onFavorite={() => {
                                         console.log('add to favorites')
                                     }}
-                                    onPlus={onAddToCart}
+                                    onPlus={(item, added) => onAddToCart(item, added)}
+                                    id={obj.id}
                                     key={obj.id}
                                 />
                             ))}
