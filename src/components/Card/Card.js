@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import styles from './Card.module.scss';
 
-const Index = ({name, price, imageUrl, onFavorite, onPlus, id}) => {
+const Card = ({name, price, imageUrl, onFavorite, onPlus, id}) => {
     const [added, setAdded] = useState(false)
     const [liked, setLiked] = useState(false)
     const likeSneaker = () => {
@@ -100,4 +100,4 @@ function AddedBtn(props) {
     )
 }
 
-export default Index;
+export default Card;

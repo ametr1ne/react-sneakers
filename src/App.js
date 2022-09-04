@@ -2,7 +2,7 @@ import './App.scss'
 import './Header.scss'
 import './Main.scss'
 import './Aside.scss'
-import Card from "./components/Card";
+import Card from "./components/Card/Card";
 import Header from "./components/Header";
 import Aside from "./components/Aside";
 import {useEffect, useState} from "react";
@@ -27,24 +27,21 @@ function App() {
             document.body.style.overflow = 'hidden'
     }, [isOpened])
 
-    const onAddToCart = (sneakerItem, added) => {
+    useEffect(() => {
+        let amount = 0
+        cartItems.forEach((value) => {
+            amount += value.price
+        })
+        setCartAmount(amount)
+    }, [cartItems])
 
-        let duplicate = false
+    const onAddToCart = (sneakerItem, added) => {
         let removeIndex
 
-        cartItems.forEach((item) => {
-            if (item.name === sneakerItem.name)
-                duplicate = true
-        })
+        removeIndex = cartItems.indexOf(sneakerItem)
+        console.log(removeIndex)
 
-        if (!added) {
-            removeIndex = cartItems.indexOf(sneakerItem)
-            if (removeIndex !== -1) {
-                cartItems.splice(removeIndex, 1)
-            }
-        }
-
-        if (!duplicate) {
+        if (removeIndex === -1) {
             setCartItems(prev => [...prev, sneakerItem])
             fetch('https://62efb1e58d7bc7c2eb7e6b32.mockapi.io/cartItems', {
                 method: 'POST',
@@ -53,9 +50,18 @@ function App() {
                 },
                 body: JSON.stringify(sneakerItem)
             })
-            setCartAmount(cartAmount + sneakerItem.price)
+            // setCartAmount(cartAmount + sneakerItem.price)
+        } else {
+            cartItems.splice(removeIndex, 1)
+            setCartItems(cartItems)
         }
+    }
 
+    const removeItem = (removingItem) => {
+        let removeIndex = cartItems.indexOf(removingItem)
+        cartItems.splice(removeIndex, 1)
+        setCartItems(cartItems)
+        console.log(removingItem)
     }
 
     return (
@@ -63,8 +69,9 @@ function App() {
             <Aside
                 opened={isOpened}
                 cartSneakers={cartItems}
-                onClickCart={() => setIsOpened(false)}
+                onCloseAside={() => setIsOpened(false)}
                 totalPrice={cartAmount}
+                removeItem={(removingItem) => removeItem(removingItem)}
             />
             <div className="wrapper">
                 <Header onToggleCart={() => setIsOpened(true)} cartAmount={cartAmount}/>

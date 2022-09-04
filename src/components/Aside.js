@@ -1,12 +1,12 @@
 import React from 'react';
-import CartItem from "./CartItem";
+import CartItem from "./CartItem/CartItem";
 
 const Aside = (props) => {
     return (
-        <aside className={props.opened ? "aside opened" : "aside"} onClick={props.onClickCart}>
+        <aside className={props.opened ? "aside opened" : "aside"} onClick={props.onCloseAside}>
             <div className="aside__content" onClick={e => e.stopPropagation()}>
                 {props.cartSneakers.length > 0 ? <>
-                    <button className="close-btn" onClick={props.onClickCart}>
+                    <button className="close-btn" onClick={props.onCloseAside}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -23,6 +23,7 @@ const Aside = (props) => {
                                     price={sneaker.price}
                                     imageUrl={sneaker.imageUrl}
                                     key={sneaker.id}
+                                    removeItem={props.removeItem}
                                 />
                             ))}
                         </div>
@@ -55,7 +56,7 @@ const Aside = (props) => {
                     <img width={120} src="/img/cartEmpty.png" alt="empty"/>
                     <h3>Корзина пустая</h3>
                     <p>Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.</p>
-                    <button onClick={props.onClickCart}>
+                    <button onClick={props.onCloseAside}>
                         <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M14.7144 7L1.00007 7" stroke="white" strokeWidth="2" strokeLinecap="round"
                                   strokeLinejoin="round"/>
