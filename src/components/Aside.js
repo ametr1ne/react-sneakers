@@ -19,11 +19,12 @@ const Aside = (props) => {
                         <div className="basket-items">
                             {props.cartSneakers.map(sneaker => (
                                 <CartItem
+                                    id={sneaker.id}
                                     name={sneaker.name}
                                     price={sneaker.price}
                                     imageUrl={sneaker.imageUrl}
+                                    removingItem={(id) => props.removeItem(id)}
                                     key={sneaker.id}
-                                    removeItem={props.removeItem}
                                 />
                             ))}
                         </div>

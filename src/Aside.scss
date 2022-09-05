@@ -61,10 +61,13 @@
       padding: 20px;
       align-items: center;
       justify-content: space-between;
+      //transform: translateX(50%);
+      //transition: transform .4s;
 
       &__left {
         display: flex;
         align-items: center;
+        overflow: auto;
       }
 
       img {

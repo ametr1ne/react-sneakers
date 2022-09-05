@@ -11,7 +11,7 @@
         display: flex;
         position: relative;
 
-        svg {
+        .search-ico {
           position: absolute;
           top: 50%;
           left: 20px;
@@ -29,6 +29,31 @@
 
           &::placeholder {
             color: #C4C4C4;
+          }
+
+          &:focus {
+            border: 1px solid #969595;
+          }
+        }
+
+        .clearSearchField {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #FFFFFF;
+          border: 1px solid #DBDBDB;
+          border-radius: 8px;
+          cursor: pointer;
+          height: 32px;
+          width: 32px;
+          transition: background .3s;
+
+          &:hover {
+            background: #e7e7e7;
           }
         }
       }
