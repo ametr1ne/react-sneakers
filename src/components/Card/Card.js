@@ -1,28 +1,65 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './Card.module.scss';
+import ContentLoader from "react-content-loader";
 
-const Card = ({name, price, imageUrl, onFavorite, onPlus, id}) => {
-    const [added, setAdded] = useState(false)
-    const [liked, setLiked] = useState(false)
+const Card = ({
+                  id,
+                  name,
+                  price,
+                  imageUrl,
+                  onToggleFavorites,
+                  onToggleCart,
+                  isLiked = false,
+                  isAddedToCart = false,
+                  isLoading
+              }) => {
+
+    const [added, setAdded] = useState(isAddedToCart)
+    const [liked, setLiked] = useState(isLiked)
+
+    useEffect(() => {
+        setAdded(isAddedToCart)
+        setLiked(isLiked)
+    }, [isLiked, isAddedToCart])
+
     const likeSneaker = () => {
+        onToggleFavorites({id, name, price, imageUrl})
         setLiked(!liked)
     }
+
     const addSneaker = () => {
-        onPlus({name, price, imageUrl, id}, added)
+        onToggleCart({id, name, price, imageUrl})
         setAdded(!added)
     }
+
     return (
         <div className={styles.card}>
-            {liked ? <LikedBtn onUnlike={likeSneaker}/> : <UnlikedBtn onLike={likeSneaker}/>}
-            <img width={140} src={imageUrl} alt="1"/>
-            <p>{name}</p>
-            <div className={styles.bottom}>
-                <div className={styles.price}>
-                    <p>Цена:</p>
-                    <b>{price} руб.</b>
-                </div>
-                {added ? <AddedBtn onRemove={addSneaker}/> : <PlusBtn onAdd={addSneaker}/>}
-            </div>
+            {isLoading ?
+                <ContentLoader
+                    speed={2}
+                    viewBox="0 0 155 220"
+                    backgroundColor="#f3f3f3"
+                    foregroundColor="#ecebeb"
+                >
+                    <circle cx="267" cy="77" r="20"/>
+                    <rect x="0" y="0" rx="10" ry="10" width="100%" height="91"/>
+                    <rect x="0" y="98" rx="5" ry="5" width="100%" height="15"/>
+                    <rect x="0" y="121" rx="5" ry="5" width="90" height="15"/>
+                    <rect x="0" y="190" rx="10" ry="10" width="80" height="23"/>
+                    <rect x="116" y="181" rx="5" ry="5" width="32" height="32"/>
+                </ContentLoader> :
+                <>
+                    {onToggleFavorites && (liked ? <LikedBtn onRemoveFromLiked={likeSneaker}/> : <UnlikedBtn onLike={likeSneaker}/>)}
+                    <img width={'100%'} src={imageUrl} alt="1"/>
+                    <p>{name}</p>
+                    <div className={styles.bottom}>
+                        <div className={styles.price}>
+                            <p>Цена:</p>
+                            <b>{price} руб.</b>
+                        </div>
+                        { onToggleCart && (added ? <AddedBtn onRemove={addSneaker}/> : <NotAddedBtn onAdd={addSneaker}/>)}
+                    </div>
+                </>}
         </div>
     );
 };
@@ -42,7 +79,7 @@ function UnlikedBtn(props) {
 
 function LikedBtn(props) {
     return (
-        <button className={styles.favBtn + ' ' + styles.favBtnLiked} onClick={props.onUnlike}>
+        <button className={styles.favBtn + ' ' + styles.favBtnLiked} onClick={props.onRemoveFromLiked}>
             <svg width="15" height="14" viewBox="0 0 15 14" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -53,7 +90,7 @@ function LikedBtn(props) {
     )
 }
 
-function PlusBtn(props) {
+function NotAddedBtn(props) {
     return (
         <button className={styles.addBtn + ' ' + styles.notAdded} onClick={props.onAdd}>
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"

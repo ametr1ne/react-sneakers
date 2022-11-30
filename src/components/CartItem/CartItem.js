@@ -1,16 +1,19 @@
 import React from 'react';
+import {AppContext} from '../../App'
+import {useCart} from '../../hooks/useCart'
 
-const CartItem = ({id, name, price, imageUrl, removingItem}) => {
+const CartItem = ({id, name, price, imageUrl, defaultID}) => {
+    const {removeItem} = useCart(AppContext)
     return (
         <div className="basket-item">
             <div className="basket-item__left">
                 <img width={70} height={70} src={imageUrl} alt="1"/>
                 <div className="basket-item__desc">
                     <p>{name}</p>
-                    <b>{price}</b>
+                    <b>{price} руб.</b>
                 </div>
             </div>
-            <button className="remove-btn" onClick={() => removingItem(id)}>
+            <button className="remove-btn" onClick={() => removeItem({id, name, price, imageUrl, defaultID})}>
                 <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
                     <path

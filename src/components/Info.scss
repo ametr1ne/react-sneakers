@@ -1,0 +1,43 @@
+.cartEmpty {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    margin-bottom: 20px;
+  }
+
+  button {
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    height: 55px;
+    border: none;
+    color: white;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #9DD558;
+    border-radius: 18px;
+    transition: background .3s ease-in-out;
+
+    svg {
+      margin-right: 20px;
+      transition: transform .3s;
+    }
+
+    &:hover {
+      background: #98c960;
+
+      svg {
+        transform: translateX(-10px);
+      }
+    }
+  }
+}
